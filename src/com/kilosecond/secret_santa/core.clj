@@ -1,4 +1,5 @@
 (ns com.kilosecond.secret-santa.core
+  (:refer-clojure :exclude [==])
   (:use [clojure.core.logic]))
 
 (defne position-distincto
@@ -30,12 +31,9 @@
   [pl x y]
   ([() _ _])
   ([[p . ps] _ _]
-     (fresh [pair rev-pair]
-            (== pair [x y])
-            (== rev-pair [y x])
-            (!= p pair)
-            (!= p rev-pair)
-            (not-pairso ps x y))))
+     (!= p [x y])
+     (!= p [y x])
+     (not-pairso ps x y)))
 
 (defn santa-pairso
   "Pairs"
