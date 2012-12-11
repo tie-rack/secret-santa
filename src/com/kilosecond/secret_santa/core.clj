@@ -42,16 +42,19 @@
          (strict-permuteo gifters giftees)
          (pairso pairs gifters giftees)))
 
+(defmacro secret-santa
+  "Generate a secret santa pairing from names, excluding pairs in
+  bad-pairs."
+  [names bad-pairs]
+  (let [exclusions (map (fn [[p1 p2]] `(not-pairso ~'q ~p1 ~p2)) bad-pairs)]
+    `(first (run 1 [~'q]
+                 (santa-pairso ~'q ~names)
+                 ~@exclusions))))
+
 (comment
-  (run 1 [q]
-       (santa-pairso q '(chris
-                         christine
-                         russell
-                         marie
-                         sumeet
-                         harish
-                         rob))
-       (not-pairso q 'chris 'christine)
-       (not-pairso q 'chris 'russell)
-       (not-pairso q 'christine 'russell)
-       (not-pairso q 'russell 'marie)))
+  (secret-santa ["chris" "christine" "russell" "marie" "harish" "sumeet"]
+                [["chris" "christine"]
+                 ["chris" "russell"]
+                 ["christine" "russell"]
+                 ["russell" "marie"]
+                 ["russell" "sumeet"]]))

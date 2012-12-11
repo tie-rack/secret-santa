@@ -4,18 +4,15 @@ Secret Santa generator with core.logic
 
 ## Usage
 
-    (run 1 [q]
-      (santa-pairso q '(chris
-                        christine
-                        russell
-                        marie
-                        sumeet
-                        harish
-                        rob))
-      (not-pairso q 'chris 'christine)
-      (not-pairso q 'chris 'russell)
-      (not-pairso q 'christine 'russell)
-      (not-pairso q 'russell 'marie))
+Feed your list of participants and your list of pairs of people who
+shouldn't be paired togther into `secret-santa`:
+
+    (secret-santa ["chris" "christine" "russell" "marie" "harish" "sumeet"]
+                  [["chris" "christine"]
+                   ["chris" "russell"]
+                   ["christine" "russell"]
+                   ["russell" "marie"]
+                   ["russell" "sumeet"]])
 
 ## License
 
