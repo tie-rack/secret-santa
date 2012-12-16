@@ -1,6 +1,7 @@
 (ns com.kilosecond.secret-santa.core
   (:refer-clojure :exclude [==])
-  (:use [clojure.core.logic]))
+  (:use [clojure.core.logic]
+        [com.kilosecond.secret-santa.rot13]))
 
 (defne no-doubleso
   "pairs does not have a pair with identical members"
@@ -47,9 +48,10 @@
                  ~@exclusions))))
 
 (comment
-  (secret-santa ["chris" "christine" "russell" "marie" "harish" "sumeet"]
-                [["chris" "christine"]
-                 ["chris" "russell"]
-                 ["christine" "russell"]
-                 ["russell" "marie"]
-                 ["russell" "sumeet"]]))
+  (map (fn [[gifter recipient]] [gifter (rot13 recipient)])
+       (secret-santa (shuffle ["chris" "christine" "russell" "marie" "harish" "sumeet"])
+                     [["chris" "christine"]
+                      ["chris" "russell"]
+                      ["christine" "russell"]
+                      ["russell" "marie"]
+                      ["russell" "sumeet"]])))
