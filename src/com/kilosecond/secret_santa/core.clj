@@ -13,13 +13,13 @@
             (!= a b)
             (no-doubleso ps))))
 
-(defne pairso
-  "pairs is zipped pairs of xl and yl"
-  [pairs xl yl]
+(defne zipo
+  "zipped is zipped pairs of xl and yl"
+  [xl yl zipped]
   ([() () ()])
-  ([[p . ps] [x . xs] [y . ys]]
-     (== p [x y])
-     (pairso ps xs ys)))
+  ([[x . xs] [y . ys] [z . zs]]
+     (== z [x y])
+     (zipo xs ys zs)))
 
 (defne not-pairedo
   "x and y aren't paired in pairs"
@@ -35,7 +35,7 @@
   [pairs gifters]
   (fresh [recipients]
          (permuteo gifters recipients)
-         (pairso pairs gifters recipients)
+         (zipo gifters recipients pairs)
          (no-doubleso pairs)))
 
 (defmacro secret-santa
