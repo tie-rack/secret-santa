@@ -7,11 +7,9 @@
   "pairs does not have a pair with identical members"
   [pairs]
   ([()])
-  ([[p . ps]]
-     (fresh [a b]
-            (== p [a b])
-            (!= a b)
-            (no-doubleso ps))))
+  ([[[a b] . ps]]
+    (!= a b)
+    (no-doubleso ps)))
 
 (defne zipo
   "zipped is zipped pairs of xl and yl"
